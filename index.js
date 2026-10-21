@@ -7,11 +7,11 @@ const chatModel = new ChatGoogleGenerativeAI({
   apiKey: process.env.gemini_key,
   temperature: 0,
 });
-const prompt = ChatPromptTemplate.fromMessages([
-  ["system", "Explain topic within 20 words."],
-  ["human", "Tell me about {topic} with example."]
-]);
-const message = await prompt.formatMessages({ topic: "Nest.js" });
+
+const prompt = ChatPromptTemplate.fromTemplate(
+  "Explain {topic} within {words} words."
+);
+const message = await prompt.formatMessages({ topic: "Nest.js", words: 20 });
 
 async function chat (){
 const response = await chatModel.invoke(message);
